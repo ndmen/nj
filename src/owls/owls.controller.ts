@@ -13,6 +13,12 @@ import { Controller, Get, Post, Query, Redirect, Param } from '@nestjs/common';
         return `Get a owl by id ${params.id}`;
     }
 
+    //Get owl by id(Use token param in decorator)
+    @Get(':id')
+    findOne(@Param('id') id : string ) : string {
+        return `Get a owl by id ${id}`;
+    }
+
     //Redirect responce on address (Ask)
     @Get('blog')
     @Redirect('http://blog.localhost:3000', 302)

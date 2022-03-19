@@ -12,6 +12,12 @@ import { Controller, Get, Post, Query, Redirect, Param } from '@nestjs/common';
             console.log(params.id);
             return `Get a lion by id ${params.id}`;
     }
+
+    //Get lion by id(Use token param in decorator)
+    @Get(':id')
+        findOne(@Param('id') id: string ) : string {
+            return `Get a lion by id ${id}`;
+        }
     
     //Redirect response on address (Ask)
     @Get('blog')
