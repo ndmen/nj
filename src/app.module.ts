@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { LoggerMiddleware } from './_middlewares/logger.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TigersModule } from './tigers/tigers.module';
@@ -13,4 +14,10 @@ import { OwlsModule } from './owls/owls.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+    .apply(LoggerMiddleware)
+    .forRoutes('lions');
+  }
+}
