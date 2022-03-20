@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete } from '@nestjs/common';
 import { CreateLionDto } from './dto/create-lion.dto';
 import { UpdateLionDto } from './dto/update-lion.dto';
 
@@ -44,6 +44,11 @@ import { UpdateLionDto } from './dto/update-lion.dto';
     @Put(':id')
     update(@Param(':id') id: string, @Body() updateLionDto : UpdateLionDto) {
         return `Update a lion by id ${id}`;
+    }
+
+    @Delete(':id')
+    remove(@Param(':id') id: string) {
+        return `Delete a lion by id ${id}`;
     }
 
  }

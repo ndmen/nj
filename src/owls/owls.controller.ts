@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete } from '@nestjs/common';
 import { CreateOwlDto } from './dto/create-owl.dto';
 import { UpdateOwlDto } from './dto/update-owl.dto';
 
@@ -44,6 +44,11 @@ import { UpdateOwlDto } from './dto/update-owl.dto';
     @Put(':id')
     update(@Param(':id') id : string, @Body() updateOwlDto : UpdateOwlDto ) {
         return `Update a owl by id ${id}`;
+    }
+
+    @Delete(':id')
+    remove(@Param(':id') id: string) {
+        return `Delete a owl by id ${id}`;
     }
 
 }
