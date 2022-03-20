@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete } from '@nestjs/common';
 import { CreateOwlDto } from './dto/create-owl.dto';
+import { UpdateOwlDto } from './dto/update-owl.dto';
 
 @Controller('owls')
   export class OwlsController {
@@ -39,4 +40,15 @@ import { CreateOwlDto } from './dto/create-owl.dto';
     async createT(@Body() createOwlDto : CreateOwlDto ) {
         return 'Create a owl';
     }
+
+    @Put(':id')
+    update(@Param(':id') id : string, @Body() updateOwlDto : UpdateOwlDto ) {
+        return `Update a owl by id ${id}`;
+    }
+
+    @Delete(':id')
+    remove(@Param(':id') id: string) {
+        return `Delete a owl by id ${id}`;
+    }
+
 }
