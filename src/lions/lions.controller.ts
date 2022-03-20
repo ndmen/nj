@@ -5,7 +5,7 @@ import { LionsService } from './lions.service';
 import { Lion } from './interfaces/lion.interface';
 
 @Controller('lions')
-  export class lionsController {
+  export class LionsController {
     constructor (private lionsService: LionsService) {}
 
     // @Get()
@@ -20,7 +20,7 @@ import { Lion } from './interfaces/lion.interface';
 
     @Post()
     async create(@Body() createLionDto: CreateLionDto) {
-        this.lionsService.create(createLionDto);
+        return this.lionsService.create(createLionDto);
     }
 
     @Get(':id') 
