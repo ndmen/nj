@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Query, Redirect, Param } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body } from '@nestjs/common';
+import { CreateLionDto } from './dto/create-lion.dto';
 
 @Controller('lions')
   export class lionsController {
@@ -15,7 +16,7 @@ import { Controller, Get, Post, Query, Redirect, Param } from '@nestjs/common';
 
     //Get lion by id(Use token param in decorator)
     @Get(':id')
-        findOne(@Param('id') id: string ) : string {
+        findOneT(@Param('id') id: string ) : string {
             return `Get a lion by id ${id}`;
         }
     
@@ -30,6 +31,12 @@ import { Controller, Get, Post, Query, Redirect, Param } from '@nestjs/common';
 
     @Post()
     create(): string {
+        return 'Create a lion';
+    }
+    
+    //Create a lion(Use Data Transfer Object(DTO))(Ask async)
+    @Post()
+    async createT(@Body() createLionDto : CreateLionDto) {
         return 'Create a lion';
     }
  }
