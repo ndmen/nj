@@ -1,12 +1,21 @@
 import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete } from '@nestjs/common';
 import { CreateLionDto } from './dto/create-lion.dto';
 import { UpdateLionDto } from './dto/update-lion.dto';
+import { LionsService } from './lions.service';
+import { Lion } from './interfaces/lion.interface';
 
 @Controller('lions')
   export class lionsController {
+    constructor (private lionsService: LionsService) {}
+
+    // @Get()
+    // findAll(): string {
+    //     return 'Get all lions';
+    // }
+
     @Get()
-    findAll(): string {
-        return 'Get all lions';
+    async findAll(): Promise<Lion[]> {
+        return this.lionsService.findAll();
     }
 
     @Get(':id') 
