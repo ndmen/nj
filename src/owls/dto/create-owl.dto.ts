@@ -1,5 +1,5 @@
 export class CreateOwlDto {
     name: string;
-    age: string;
+    age: number;
     breed: string;
 }

@@ -1,12 +1,26 @@
 import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete } from '@nestjs/common';
+import { OwlsService } from 'src/owls/owls.service';
 import { CreateOwlDto } from './dto/create-owl.dto';
 import { UpdateOwlDto } from './dto/update-owl.dto';
+import { Owl } from './interfaces/owl.interface';
 
 @Controller('owls')
   export class OwlsController {
+    constructor (private owlsService: OwlsService) {}
+
+    // @Get()
+    // findAll(): string {
+    //     return 'Get all owls';
+    // }
+
     @Get()
-    findAll(): string {
-        return 'Get all owls';
+    async findAll(): Promise<Owl[]> {
+        return this.owlsService.findAll();
+    }
+
+    @Post()
+    async create(@Body() createOwlDto: CreateOwlDto ) {
+        return this.owlsService.create(createOwlDto);
     }
 
     @Get(':id')
@@ -30,16 +44,16 @@ import { UpdateOwlDto } from './dto/update-owl.dto';
         }
     }
 
-    @Post()
-    create(): string {
-        return 'Create a owl';
-    }
+    // @Post()
+    // create(): string {
+    //     return 'Create a owl';
+    // }
     
     //Create a owl(Use Data Transfer Object(DTO))(Ask async)
-    @Post()
-    async createT(@Body() createOwlDto : CreateOwlDto ) {
-        return 'Create a owl';
-    }
+    // @Post()
+    // async createT(@Body() createOwlDto : CreateOwlDto ) {
+    //     return 'Create a owl';
+    // }
 
     @Put(':id')
     update(@Param(':id') id : string, @Body() updateOwlDto : UpdateOwlDto ) {
