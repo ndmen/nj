@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Query, Redirect, Param } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body } from '@nestjs/common';
+import { CreateOwlDto } from './dto/create-owl.dto';
 
 @Controller('owls')
   export class OwlsController {
@@ -15,7 +16,7 @@ import { Controller, Get, Post, Query, Redirect, Param } from '@nestjs/common';
 
     //Get owl by id(Use token param in decorator)
     @Get(':id')
-    findOne(@Param('id') id : string ) : string {
+    findOneT(@Param('id') id : string ) : string {
         return `Get a owl by id ${id}`;
     }
 
@@ -30,6 +31,12 @@ import { Controller, Get, Post, Query, Redirect, Param } from '@nestjs/common';
 
     @Post()
     create(): string {
+        return 'Create a owl';
+    }
+    
+    //Create a owl(Use Data Transfer Object(DTO))(Ask async)
+    @Post()
+    async createT(@Body() createOwlDto : CreateOwlDto ) {
         return 'Create a owl';
     }
 }
