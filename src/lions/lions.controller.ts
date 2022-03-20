@@ -18,6 +18,11 @@ import { Lion } from './interfaces/lion.interface';
         return this.lionsService.findAll();
     }
 
+    @Post()
+    async create(@Body() createLionDto: CreateLionDto) {
+        this.lionsService.create(createLionDto);
+    }
+
     @Get(':id') 
     findOne(@Param() params) : string {
         console.log(params.id);
@@ -39,16 +44,16 @@ import { Lion } from './interfaces/lion.interface';
         }
     }
 
-    @Post()
-    create(): string {
-        return 'Create a lion';
-    }
+    // @Post()
+    // create(): string {
+    //     return 'Create a lion';
+    // }
     
     //Create a lion(Use Data Transfer Object(DTO))(Ask async)
-    @Post()
-    async createT(@Body() createLionDto : CreateLionDto) {
-        return 'Create a lion';
-    }
+    // @Post()
+    // async createT(@Body() createLionDto : CreateLionDto) {
+    //     return 'Create a lion';
+    // }
 
     @Put(':id')
     update(@Param(':id') id: string, @Body() updateLionDto : UpdateLionDto) {
