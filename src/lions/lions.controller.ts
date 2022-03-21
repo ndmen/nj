@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe } from '@nestjs/common';
 import { CreateLionDto } from './dto/create-lion.dto';
 import { UpdateLionDto } from './dto/update-lion.dto';
 import { LionsService } from './lions.service';
@@ -23,17 +23,23 @@ import { Lion } from './interfaces/lion.interface';
         return this.lionsService.create(createLionDto);
     }
 
-    @Get(':id') 
-    findOne(@Param() params) : string {
-        console.log(params.id);
-        return `Get a lion by id ${params.id}`;
-    }
-
-    //Get lion by id(Use token param in decorator)
+    //Use Validation(Pipes)
     @Get(':id')
-    findOneT(@Param('id') id: string ) : string {
+    async findOne(@Param('id', ParseIntPipe) id: number ) {
         return `Get a lion by id ${id}`;
     }
+
+    // @Get(':id') 
+    // findOne(@Param() params) : string {
+    //     console.log(params.id);
+    //     return `Get a lion by id ${params.id}`;
+    // }
+
+    //Get lion by id(Use token param in decorator)
+    // @Get(':id')
+    // findOneT(@Param('id') id: string ) : string {
+    //     return `Get a lion by id ${id}`;
+    // }
     
     //Redirect response on address (Ask)
     @Get('blog')
