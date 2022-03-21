@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe } from '@nestjs/common';
 import { OwlsService } from 'src/owls/owls.service';
 import { CreateOwlDto } from './dto/create-owl.dto';
 import { UpdateOwlDto } from './dto/update-owl.dto';
@@ -23,17 +23,23 @@ import { Owl } from './interfaces/owl.interface';
         return this.owlsService.create(createOwlDto);
     }
 
+    //Use Validation(Pipes)
     @Get(':id')
-    findOne(@Param() params) : string {
-        console.log(params.id);
-        return `Get a owl by id ${params.id}`;
-    }
-
-    //Get owl by id(Use token param in decorator)
-    @Get(':id')
-    findOneT(@Param('id') id : string ) : string {
+    async findOne(@Param('id', ParseIntPipe) id: number) {
         return `Get a owl by id ${id}`;
     }
+
+    // @Get(':id')
+    // findOne(@Param() params) : string {
+    //     console.log(params.id);
+    //     return `Get a owl by id ${params.id}`;
+    // }
+
+    //Get owl by id(Use token param in decorator)
+    // @Get(':id')
+    // findOneT(@Param('id') id : string ) : string {
+    //     return `Get a owl by id ${id}`;
+    // }
 
     //Redirect responce on address (Ask)
     @Get('blog')
