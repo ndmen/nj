@@ -3,6 +3,7 @@ import { OwlsService } from 'src/owls/owls.service';
 import { Roles } from 'src/_decorators/roles.decorator';
 import { RolesGuard } from 'src/_guards/roles.guard';
 import { LoggingInterceptor } from 'src/_interseptors/logging.interceptor';
+import { TransformInterceptor } from 'src/_interseptors/transfom.interceptor';
 import { CreateOwlDto } from './dto/create-owl.dto';
 import { UpdateOwlDto } from './dto/update-owl.dto';
 import { Owl } from './interfaces/owl.interface';
@@ -30,8 +31,9 @@ import { Owl } from './interfaces/owl.interface';
 
     //Use Validation(Pipes)
     @Get(':id')
-    @UseGuards(RolesGuard)
-    @UseInterceptors(LoggingInterceptor)
+    // @UseGuards(RolesGuard)
+    // @UseInterceptors(LoggingInterceptor)
+    @UseInterceptors(TransformInterceptor)
     async findOne(@Param('id', ParseIntPipe) id: number) {
         return `Get a owl by id ${id}`;
     }
