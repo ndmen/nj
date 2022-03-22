@@ -5,6 +5,7 @@ import { LionsService } from './lions.service';
 import { Lion } from './interfaces/lion.interface';
 import { RolesGuard } from 'src/_guards/roles.guard';
 import { LoggingInterceptor } from 'src/_interseptors/logging.interceptor';
+import { TransformInterceptor } from 'src/_interseptors/transfom.interceptor';
 
 @Controller('lions')
   export class LionsController {
@@ -16,8 +17,9 @@ import { LoggingInterceptor } from 'src/_interseptors/logging.interceptor';
     // }
 
     @Get()
-    @UseGuards(RolesGuard)
-    @UseInterceptors(LoggingInterceptor)
+    // @UseGuards(RolesGuard)
+    // @UseInterceptors(LoggingInterceptor)
+    @UseInterceptors(TransformInterceptor)
     async findAll(): Promise<Lion[]> {
         return this.lionsService.findAll();
     }
