@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards} from '@nestjs/common';
 import { OwlsService } from 'src/owls/owls.service';
+import { Roles } from 'src/_decorators/roles.decorator';
+import { RolesGuard } from 'src/_guards/roles.guard';
 import { CreateOwlDto } from './dto/create-owl.dto';
 import { UpdateOwlDto } from './dto/update-owl.dto';
 import { Owl } from './interfaces/owl.interface';
 
 @Controller('owls')
+
   export class OwlsController {
     constructor (private owlsService: OwlsService) {}
 
@@ -25,6 +28,7 @@ import { Owl } from './interfaces/owl.interface';
 
     //Use Validation(Pipes)
     @Get(':id')
+    @UseGuards(RolesGuard)
     async findOne(@Param('id', ParseIntPipe) id: number) {
         return `Get a owl by id ${id}`;
     }
