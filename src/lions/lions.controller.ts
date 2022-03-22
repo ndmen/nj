@@ -7,6 +7,8 @@ import { RolesGuard } from 'src/_guards/roles.guard';
 import { LoggingInterceptor } from 'src/_interseptors/logging.interceptor';
 import { TransformInterceptor } from 'src/_interseptors/transfom.interceptor';
 import { ErrorInterceptor } from 'src/_interseptors/errors.interceptor';
+import { CacheInterceptor } from 'src/_interseptors/cache.interceptor';
+import { TimeoutInterceptor } from 'src/_interseptors/timeout.interceptor';
 
 @Controller('lions')
   export class LionsController {
@@ -21,7 +23,8 @@ import { ErrorInterceptor } from 'src/_interseptors/errors.interceptor';
     // @UseGuards(RolesGuard)
     // @UseInterceptors(LoggingInterceptor)
     // @UseInterceptors(TransformInterceptor)
-    @UseInterceptors(ErrorInterceptor)
+    // @UseInterceptors(ErrorInterceptor)
+    @UseInterceptors(CacheInterceptor, TimeoutInterceptor)
     async findAll(): Promise<Lion[]> {
         return this.lionsService.findAll();
     }
