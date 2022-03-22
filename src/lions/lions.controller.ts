@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { CreateLionDto } from './dto/create-lion.dto';
 import { UpdateLionDto } from './dto/update-lion.dto';
 import { LionsService } from './lions.service';
 import { Lion } from './interfaces/lion.interface';
+import { RolesGuard } from 'src/_guards/roles.guard';
 
 @Controller('lions')
   export class LionsController {
@@ -14,6 +15,7 @@ import { Lion } from './interfaces/lion.interface';
     // }
 
     @Get()
+    @UseGuards(RolesGuard)
     async findAll(): Promise<Lion[]> {
         return this.lionsService.findAll();
     }
