@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards, UseInterceptors } from '@nestjs/common';
 import { CreateLionDto } from './dto/create-lion.dto';
 import { UpdateLionDto } from './dto/update-lion.dto';
 import { LionsService } from './lions.service';
 import { Lion } from './interfaces/lion.interface';
 import { RolesGuard } from 'src/_guards/roles.guard';
+import { LoggingInterceptor } from 'src/_interseptors/logging.interceptor';
+import { TransformInterceptor } from 'src/_interseptors/transfom.interceptor';
 
 @Controller('lions')
   export class LionsController {
@@ -15,7 +17,9 @@ import { RolesGuard } from 'src/_guards/roles.guard';
     // }
 
     @Get()
-    @UseGuards(RolesGuard)
+    // @UseGuards(RolesGuard)
+    // @UseInterceptors(LoggingInterceptor)
+    @UseInterceptors(TransformInterceptor)
     async findAll(): Promise<Lion[]> {
         return this.lionsService.findAll();
     }
@@ -27,6 +31,7 @@ import { RolesGuard } from 'src/_guards/roles.guard';
 
     //Use Validation(Pipes)
     @Get(':id')
+    @UseInterceptors(LoggingInterceptor)
     async findOne(@Param('id', ParseIntPipe) id: number ) {
         return `Get a lion by id ${id}`;
     }

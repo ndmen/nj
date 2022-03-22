@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards} from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards, UseInterceptors} from '@nestjs/common';
 import { OwlsService } from 'src/owls/owls.service';
 import { Roles } from 'src/_decorators/roles.decorator';
 import { RolesGuard } from 'src/_guards/roles.guard';
+import { LoggingInterceptor } from 'src/_interseptors/logging.interceptor';
+import { TransformInterceptor } from 'src/_interseptors/transfom.interceptor';
 import { CreateOwlDto } from './dto/create-owl.dto';
 import { UpdateOwlDto } from './dto/update-owl.dto';
 import { Owl } from './interfaces/owl.interface';
@@ -17,6 +19,7 @@ import { Owl } from './interfaces/owl.interface';
     // }
 
     @Get()
+    @UseInterceptors(LoggingInterceptor)
     async findAll(): Promise<Owl[]> {
         return this.owlsService.findAll();
     }
@@ -28,7 +31,9 @@ import { Owl } from './interfaces/owl.interface';
 
     //Use Validation(Pipes)
     @Get(':id')
-    @UseGuards(RolesGuard)
+    // @UseGuards(RolesGuard)
+    // @UseInterceptors(LoggingInterceptor)
+    @UseInterceptors(TransformInterceptor)
     async findOne(@Param('id', ParseIntPipe) id: number) {
         return `Get a owl by id ${id}`;
     }
