@@ -2,6 +2,7 @@ import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, Parse
 import { OwlsService } from 'src/owls/owls.service';
 import { Roles } from 'src/_decorators/roles.decorator';
 import { RolesGuard } from 'src/_guards/roles.guard';
+import { ErrorInterceptor } from 'src/_interseptors/errors.interceptor';
 import { LoggingInterceptor } from 'src/_interseptors/logging.interceptor';
 import { TransformInterceptor } from 'src/_interseptors/transfom.interceptor';
 import { CreateOwlDto } from './dto/create-owl.dto';
@@ -33,7 +34,8 @@ import { Owl } from './interfaces/owl.interface';
     @Get(':id')
     // @UseGuards(RolesGuard)
     // @UseInterceptors(LoggingInterceptor)
-    @UseInterceptors(TransformInterceptor)
+    // @UseInterceptors(TransformInterceptor)
+    @UseInterceptors(ErrorInterceptor)
     async findOne(@Param('id', ParseIntPipe) id: number) {
         return `Get a owl by id ${id}`;
     }
