@@ -14,3 +14,12 @@ export class OwlsService {
     }
 
 }
+
+// Expample Circular Dependency. Forward reference
+// @Injectable()
+// export class OwlsService {
+//     constructor(
+//         @Inject(forwardRef(() => LionsService))
+//         private lionsService: LionsService,
+//     ) {}
+// }
