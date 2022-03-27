@@ -8,10 +8,12 @@ import { DogsModule } from './dogs/dogs.module';
 import { LionsModule } from './lions/lions.module';
 import { OwlsModule } from './owls/owls.module';
 import { LionsController } from './lions/lions.controller';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './configs/configuration';
 
 
 @Module({
-  imports: [ DogsModule, TigersModule, CatsModule, LionsModule, OwlsModule],
+  imports: [ DogsModule, TigersModule, CatsModule, LionsModule, OwlsModule, ConfigModule.forRoot({envFilePath: ['.env', '.env.development'], load: [configuration]})],
   controllers: [AppController],
   providers: [AppService],
 })
