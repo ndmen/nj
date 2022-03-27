@@ -9,6 +9,10 @@ async function bootstrap() {
 
   //Not work(We don't use functional middleware)
   app.use(LoggerMiddleware);
-  app.useGlobalPipes(new ValidationPipe)
+  app.useGlobalPipes(new ValidationPipe({
+    disableErrorMessages: true, //Disable error messages
+    whitelist: true, //Delete params, where not validation decorators in class validator
+    transform: true, //Activate auto transform
+  }))
 }
 bootstrap();

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateLionDto } from './dto/create-lion.dto';
 import { UpdateLionDto } from './dto/update-lion.dto';
 import { LionsService } from './lions.service';
@@ -36,8 +36,10 @@ import { TimeoutInterceptor } from 'src/_interseptors/timeout.interceptor';
 
     //Use Validation(Pipes)
     @Get(':id')
+    @UsePipes(new ValidationPipe({ transform: true }))
     @UseInterceptors(LoggingInterceptor)
     async findOne(@Param('id', ParseIntPipe) id: number ) {
+        console.log(typeof id === 'number');
         return `Get a lion by id ${id}`;
     }
 
