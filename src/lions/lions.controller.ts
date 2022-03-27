@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards, UseInterceptors, UsePipes, ValidationPipe, ParseBoolPipe, ParseArrayPipe } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards, UseInterceptors, UsePipes, ValidationPipe, ParseBoolPipe, ParseArrayPipe, Version } from '@nestjs/common';
 import { CreateLionDto } from './dto/create-lion.dto';
 import { UpdateLionDto } from './dto/update-lion.dto';
 import { LionsService } from './lions.service';
@@ -29,11 +29,13 @@ import { TimeoutInterceptor } from 'src/_interseptors/timeout.interceptor';
         return this.lionsService.findAll();
     }
 
+    @Version('2') //Why do not working?
     @Get('ids')
-    findByIdsP(
+    findByIdsV2(
         @Query('ids', new ParseArrayPipe({ items: Number, separator: ','}))
         ids: number[],
     ) {
+        console.log(ids);
         return `Return usres by ids ${ids}`;
     }
 
@@ -43,6 +45,7 @@ import { TimeoutInterceptor } from 'src/_interseptors/timeout.interceptor';
     }
 
     //Use Validation(Pipes)
+    @Version('1')
     @Get(':id')
     @UsePipes(new ValidationPipe({ transform: true }))
     @UseInterceptors(LoggingInterceptor)

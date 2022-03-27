@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { LoggerMiddleware } from './_middlewares/logger.middleware';
@@ -13,6 +13,9 @@ async function bootstrap() {
     disableErrorMessages: true, //Disable error messages
     whitelist: true, //Delete params, where not validation decorators in class validator
     transform: true, //Activate auto transform
-  }))
+  }));
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
 }
 bootstrap();
