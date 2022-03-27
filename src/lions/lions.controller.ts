@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards, UseInterceptors, UsePipes, ValidationPipe, ParseBoolPipe } from '@nestjs/common';
+import { Controller, Get, Post, Query, Redirect, Param, Body, Put, Delete, ParseIntPipe, UseGuards, UseInterceptors, UsePipes, ValidationPipe, ParseBoolPipe, ParseArrayPipe } from '@nestjs/common';
 import { CreateLionDto } from './dto/create-lion.dto';
 import { UpdateLionDto } from './dto/update-lion.dto';
 import { LionsService } from './lions.service';
@@ -27,6 +27,14 @@ import { TimeoutInterceptor } from 'src/_interseptors/timeout.interceptor';
     @UseInterceptors(CacheInterceptor, TimeoutInterceptor)
     async findAll(): Promise<Lion[]> {
         return this.lionsService.findAll();
+    }
+
+    @Get('ids')
+    findByIdsP(
+        @Query('ids', new ParseArrayPipe({ items: Number, separator: ','}))
+        ids: number[],
+    ) {
+        return `Return usres by ids ${ids}`;
     }
 
     @Post()
