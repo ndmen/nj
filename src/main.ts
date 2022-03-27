@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { LoggerMiddleware } from './_middlewares/logger.middleware';
@@ -8,5 +9,10 @@ async function bootstrap() {
 
   //Not work(We don't use functional middleware)
   app.use(LoggerMiddleware);
+  app.useGlobalPipes(new ValidationPipe({
+    disableErrorMessages: true, //Disable error messages
+    whitelist: true, //Delete params, where not validation decorators in class validator
+    transform: true, //Activate auto transform
+  }))
 }
 bootstrap();
