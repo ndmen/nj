@@ -10,7 +10,11 @@ import { ErrorInterceptor } from 'src/_interseptors/errors.interceptor';
 import { CacheInterceptor } from 'src/_interseptors/cache.interceptor';
 import { TimeoutInterceptor } from 'src/_interseptors/timeout.interceptor';
 
-@Controller('lions')
+@Controller({
+    path: 'lions', 
+    version: '1'
+})
+// @Controller({ version: '1'}) Added route v1 for controller
   export class LionsController {
     constructor (private lionsService: LionsService) {}
 
@@ -29,7 +33,7 @@ import { TimeoutInterceptor } from 'src/_interseptors/timeout.interceptor';
         return this.lionsService.findAll();
     }
 
-    @Version('2') //Why do not working?
+    // @Version('2') //Why do not working?
     @Get('ids')
     findByIdsV2(
         @Query('ids', new ParseArrayPipe({ items: Number, separator: ','}))
